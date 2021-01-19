@@ -1,16 +1,9 @@
-from player_reader import PlayerReader
-
-
 def sort_by_points(player):
     return player.points
 
 
 class Statistics:
-    def __init__(self):
-        reader = PlayerReader(
-            "https://nhlstatisticsforohtu.herokuapp.com/players.txt"
-        )
-
+    def __init__(self, reader):
         self._players = reader.get_players()
 
     def search(self, name):
@@ -38,7 +31,7 @@ class Statistics:
         result = []
         i = 0
         while i <= how_many:
-          result.append(sorted_players[i])
-          i += 1
+            result.append(sorted_players[i])
+            i += 1
 
         return result
