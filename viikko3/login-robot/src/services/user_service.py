@@ -31,3 +31,5 @@ class UserService:
             raise UserInputError("Username and password are required")
         if len(username) < 3:
             raise UserInputError("Username is too short")
+        if len(password) < 8:
+            raise UserInputError("Password is too short")
