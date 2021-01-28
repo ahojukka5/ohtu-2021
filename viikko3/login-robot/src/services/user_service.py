@@ -33,3 +33,5 @@ class UserService:
             raise UserInputError("Username is too short")
         if len(password) < 8:
             raise UserInputError("Password is too short")
+        if password.isalpha():
+            raise UserInputError("Password contains only letters")
