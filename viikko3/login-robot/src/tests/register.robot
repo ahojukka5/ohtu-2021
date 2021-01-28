@@ -15,3 +15,7 @@ Register With Already Taken Username And Valid Password
 Register With Too Short Username And Valid Password
     Create User             ka     kalle123
     Output Should Contain   Username is too short
+
+Register With Valid Username And Too Short Password
+    Create User             kalle   kalle12
+    Output Should Contain   Password is too short
