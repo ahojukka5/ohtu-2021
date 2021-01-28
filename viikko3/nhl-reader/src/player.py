@@ -8,5 +8,9 @@ class Player:
         self.team = team
         self.games = games
 
+    @property
+    def points(self):
+        return self.goals + self.assists
+
     def __str__(self):
         return f"{self.name} team {self.team} goals {self.goals} assists {self.assists}"
