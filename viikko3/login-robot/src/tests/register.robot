@@ -4,5 +4,5 @@ Documentation  A new user account can be created if a proper unused username and
 
 *** Test Cases ***
 Register With Valid Username And Password
-    Register User           kalle  kalle123
-    Output Should Contain   Registered
+    Create User        kalle  kalle123
+    User Should Exist  kalle
