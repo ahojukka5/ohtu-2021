@@ -9,11 +9,7 @@ class AppLibrary:
         self._io = StubIO()
         self._user_repository = UserRepository()
         self._user_service = UserService(self._user_repository)
-
-        self._app = App(
-            self._user_service,
-            self._io
-        )
+        self._app = App(self._user_service, self._io)
 
     def input(self, value):
         self._io.add_input(value)
@@ -21,13 +17,15 @@ class AppLibrary:
     def output_should_contain(self, value):
         outputs = self._io.outputs
 
-        if not value in outputs:
-            raise AssertionError(
-                f"Output \"{value}\" is not in {str(outputs)}"
-            )
+        if value not in outputs:
+            raise AssertionError(f'Output "{value}" is not in {str(outputs)}')
 
     def run_application(self):
         self._app.run()
 
     def create_user(self, username, password):
         self._user_service.create_user(username, password)
+
+    def user_should_exist(self, username):
+        if not self._user_repository.find_by_username(username):
+            raise AssertionError(f"User {username} does not exist")
