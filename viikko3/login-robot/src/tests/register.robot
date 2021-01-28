@@ -19,3 +19,7 @@ Register With Too Short Username And Valid Password
 Register With Valid Username And Too Short Password
     Create User             kalle   kalle12
     Output Should Contain   Password is too short
+
+Register With Valid Username And Long Enough Password Containing Only Letters
+    Create User             kalle   kallenalle
+    Output Should Contain   Password contains only letters
