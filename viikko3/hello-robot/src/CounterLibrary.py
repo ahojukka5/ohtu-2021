@@ -12,6 +12,9 @@ class CounterLibrary:
         int_amount = int(amount)
         self._counter.increment(int_amount)
 
+    def reset_counter(self):
+        self._counter.reset()
+
     def counter_value_should_be(self, expected):
         int_expected = int(expected)
         if self._counter.value != int_expected:
