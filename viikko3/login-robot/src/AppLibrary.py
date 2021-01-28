@@ -24,7 +24,10 @@ class AppLibrary:
         self._app.run()
 
     def create_user(self, username, password):
-        self._user_service.create_user(username, password)
+        try:
+            self._user_service.create_user(username, password)
+        except Exception as err:
+            self._io.outputs.append(str(err))
 
     def user_should_exist(self, username):
         if not self._user_repository.find_by_username(username):
