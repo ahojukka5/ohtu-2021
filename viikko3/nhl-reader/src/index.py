@@ -31,7 +31,9 @@ def main(verbose=False):
     now = datetime.now()
     print(f"Players from {nationality} {now}")
 
-    for player in filter(lambda p: p.nationality == nationality, players):
+    players_ = list(filter(lambda p: p.nationality == nationality, players))
+    players_.sort(key=lambda p: p.points, reverse=True)
+    for player in players_:
         print(player)
 
 
