@@ -43,5 +43,8 @@ class UserService:
         if len(username) < 3:
             raise UserInputError("Username is too short")
 
+        if len(password) < 8:
+            raise UserInputError("Password is too short")
+
 
 user_service = UserService()
