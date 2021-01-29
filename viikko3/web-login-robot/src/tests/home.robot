@@ -9,6 +9,6 @@ Click Login Link
     Click Link  Login
     Login Page Should Be Open
 
-# Click Register Link
-#     Click Link  Register new user
-#     Register Page Should Be Open
+Click Register Link
+    Click Link  Register new user
+    Register Page Should Be Open
