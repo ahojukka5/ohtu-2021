@@ -2,6 +2,7 @@
 Resource        resource.robot
 Suite Setup     Open And Configure Browser
 Suite Teardown  Close Browser
+Test Setup      Reset Application
 Documentation   A new user account can be created if a proper unused username and a proper password are given
 
 *** Test Cases ***
