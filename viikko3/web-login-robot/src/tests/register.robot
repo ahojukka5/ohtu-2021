@@ -30,6 +30,14 @@ Login After Successful Registration
     Click Button     Login
     Main Page Should Be Open
 
+Login After Failed Registration
+    Register         pekka  jukka123  jukka321
+    Go To Login Page
+    Input Text       username  pekka
+    Input Password   password  jukka123
+    Click Button     Login
+    Page Should Contain  Invalid username or password
+
 *** Keywords ***
 
 Register
