@@ -22,6 +22,14 @@ Register With Nonmatching Password And Password Confirmation
     Register  kalle  kalle123  kalle234
     Page Should Contain  Password confirmation failed
 
+Login After Successful Registration
+    Register         jukka  jukka123  jukka123
+    Go To Login Page
+    Input Text       username  jukka
+    Input Password   password  jukka123
+    Click Button     Login
+    Main Page Should Be Open
+
 *** Keywords ***
 
 Register
