@@ -28,3 +28,11 @@ Register With Valid Username And Too Short Password
     Input Password  password_confirmation  kalle
     Click Button    Register
     Page Should Contain  Password is too short
+
+Register With Nonmatching Password And Password Confirmation
+    Go To Register Page
+    Input Text      username  kalle
+    Input Password  password  kalle123
+    Input Password  password_confirmation  kalle234
+    Click Button    Register
+    Page Should Contain  Password confirmation failed
