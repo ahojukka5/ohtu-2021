@@ -46,5 +46,8 @@ class UserService:
         if len(password) < 8:
             raise UserInputError("Password is too short")
 
+        if password != password_confirmation:
+            raise UserInputError("Password confirmation failed")
+
 
 user_service = UserService()
