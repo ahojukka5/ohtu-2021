@@ -33,3 +33,6 @@ Go To Login Page
 
 Go To Main Page
     Go To  ${HOME URL}
+
+Go To Register Page
+    Go To  ${REGISTER URL}
