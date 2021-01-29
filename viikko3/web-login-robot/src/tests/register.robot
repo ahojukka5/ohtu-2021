@@ -12,3 +12,11 @@ Register With Valid Username And Password
     Input Password  password_confirmation  kalle456
     Click Button    Register
     Welcome Page Should Be Open
+
+Register With Too Short Username And Valid Password
+    Go To Register Page
+    Input Text      username  ka
+    Input Password  password  kalle456
+    Input Password  password_confirmation  kalle456
+    Click Button    Register
+    Page Should Contain  Username is too short
