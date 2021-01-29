@@ -1,6 +1,6 @@
 *** Settings ***
 Resource       resource.robot
-Documentation  A new user account can be created if a proper unused username and a proper password
+Documentation  A new user account can be created if a proper unused username and a proper password is given
 
 *** Test Cases ***
 Register With Valid Username And Password
