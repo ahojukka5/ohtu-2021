@@ -65,7 +65,7 @@ class TestKauppa(unittest.TestCase):
         kauppa.maksa("1111")
 
         # katsotaan, että kolmannen parametrin arvo on oikea
-        pankki_mock.maksa.assert_called_with(ANY, ANY, 55)
+        pankki_mock.maksa.assert_called_with(ANY, ANY, 1000)
 
     def test_pyydetaan_uusi_viite_jokaiseen_maksuun(self):
         pankki_mock = Mock()
