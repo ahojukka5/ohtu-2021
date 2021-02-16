@@ -10,7 +10,7 @@ class TestKauppa(unittest.TestCase):
 
     def setUp(self):
         self.pankki_mock = pankki_mock = Mock()
-        viitegeneraattori_mock = Mock()
+        self.viitegeneraattori_mock = viitegeneraattori_mock = Mock()
 
         # palautetaan aina arvo 42
         viitegeneraattori_mock.uusi.return_value = 42
@@ -145,3 +145,45 @@ class TestKauppa(unittest.TestCase):
         tilille = ANY
         summa = 5
         tilisiirto.assert_called_with(nimi, viitenumero, tililta, tilille, summa)
+
+    def test_aloita_asiointi(self):
+        """Varmista, että metodin aloita_asiointi kutsuminen nollaa edellisen
+        ostoksen tiedot (eli edellisen ostoksen hinta ei näy uuden ostoksen
+        hinnassa), katso tarvittaessa apua projektin mock-demo testeistä!"""
+
+        kauppa = self.kauppa
+        tilisiirto = self.pankki_mock.tilisiirto
+
+        # tehdään ostokset
+        kauppa.aloita_asiointi()
+        kauppa.lisaa_koriin(2)  # jauheliha 10 rahaa
+        kauppa.aloita_asiointi()  # jauheliha pois
+        kauppa.lisaa_koriin(1)  # maito 5 rahaa
+        kauppa.tilimaksu("pekka", "12345")
+
+        # varmistetaan, että metodia tilisiirto on kutsuttu
+        nimi = "pekka"
+        viitenumero = 42
+        tililta = "12345"
+        tilille = ANY
+        summa = 5
+        tilisiirto.assert_called_with(nimi, viitenumero, tililta, tilille, summa)
+
+    def test_viitenumero(self):
+        """Varmista, että kauppa pyytää uuden viitenumeron jokaiselle
+        maksutapahtumalle, katso tarvittaessa apua projektin mock-demo
+        testeistä!"""
+
+        kauppa = self.kauppa
+
+        # tehdään ostokset
+        kauppa.aloita_asiointi()
+        kauppa.lisaa_koriin(2)  # jauheliha 10 rahaa
+        kauppa.tilimaksu("pekka", "12345")
+
+        # tehdään toiset ostokset
+        kauppa.aloita_asiointi()
+        kauppa.lisaa_koriin(1)  # maito 5 rahaa
+        kauppa.tilimaksu("pekka", "12345")
+
+        self.assertEqual(self.viitegeneraattori_mock.uusi.call_count, 2)
