@@ -187,3 +187,23 @@ class TestKauppa(unittest.TestCase):
         kauppa.tilimaksu("pekka", "12345")
 
         self.assertEqual(self.viitegeneraattori_mock.uusi.call_count, 2)
+
+    def test_poista_korista(self):
+        """Poistetaan tuote korista."""
+        kauppa = self.kauppa
+        tilisiirto = self.pankki_mock.tilisiirto
+
+        # tehdään ostokset
+        kauppa.aloita_asiointi()
+        kauppa.lisaa_koriin(1)
+        kauppa.lisaa_koriin(2)
+        kauppa.poista_korista(2)
+        kauppa.tilimaksu("pekka", "12345")
+
+        # varmistetaan, että metodia tilisiirto on kutsuttu
+        nimi = "pekka"
+        viitenumero = 42
+        tililta = "12345"
+        tilille = ANY
+        summa = 5
+        tilisiirto.assert_called_with(nimi, viitenumero, tililta, tilille, summa)
