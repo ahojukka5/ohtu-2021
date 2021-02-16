@@ -9,5 +9,6 @@ class Kassapaate:
         kortti.lataa(summa)
 
     def osta_lounas(self, kortti):
-        kortti.osta(HINTA)
-        self.myytyja_lounaita = self.myytyja_lounaita + 1
+        if kortti.saldo > HINTA:
+            kortti.osta(HINTA)
+            self.myytyja_lounaita = self.myytyja_lounaita + 1
