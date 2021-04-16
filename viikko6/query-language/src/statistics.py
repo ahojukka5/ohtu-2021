@@ -17,26 +17,16 @@ class Statistics:
         return None
 
     def team(self, team_name):
-        players_of_team = filter(
-            lambda player: player.team == team_name,
-            self._players
-        )
+        players_of_team = filter(lambda player: player.team == team_name, self._players)
 
         return list(players_of_team)
 
     def top_scorers(self, how_many):
-        sorted_players = sorted(
-            self._players,
-            reverse=True,
-            key=sort_by_points
-        )
+        sorted_players = sorted(self._players, reverse=True, key=sort_by_points)
 
         return sorted_players[:how_many]
 
     def matches(self, matcher):
-        matching_players = filter(
-            lambda player: matcher.matches(player),
-            self._players
-        )
+        matching_players = filter(lambda player: matcher.matches(player), self._players)
 
         return list(matching_players)

@@ -19,7 +19,7 @@ class PlayerReader:
                     parts[0].strip(),
                     parts[1].strip(),
                     int(parts[3].strip()),
-                    int(parts[4].strip())
+                    int(parts[4].strip()),
                 )
 
                 players.append(player)
