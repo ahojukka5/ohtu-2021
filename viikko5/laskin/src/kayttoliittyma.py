@@ -13,6 +13,7 @@ class PerusKomento:
     def __init__(self, sovelluslogiikka, lue_syote):
         self._sovelluslogiikka = sovelluslogiikka
         self._lue_syote = lue_syote
+        self._tulos = None
 
     def lue_syote(self):
         arvo = 0
@@ -23,27 +24,48 @@ class PerusKomento:
         return arvo
 
     def suorita(self):
+        self._tulos = self._sovelluslogiikka.tulos
+        self._suorita()
+
+    def voiko_kumota(self):
+        return self._tulos is not None
+
+    def kumoa(self):
+        if self.voiko_kumota():
+            self._sovelluslogiikka.tulos = self._tulos
+            self._tulos = None
+
+    def _suorita(self):
         raise NotImplementedError("Implementoi itse!")
 
 
 class Summa(PerusKomento):
-    def suorita(self):
+    def _suorita(self):
         self._sovelluslogiikka.plus(self.lue_syote())
 
 
 class Erotus(PerusKomento):
-    def suorita(self):
+    def _suorita(self):
         self._sovelluslogiikka.miinus(self.lue_syote())
 
 
 class Nollaus(PerusKomento):
-    def suorita(self):
+    def _suorita(self):
         self._sovelluslogiikka.nollaa()
 
 
 class Kumoa(PerusKomento):
+
+    def __init__(self, sovelluslogiikka, lue_syote):
+        super().__init__(sovelluslogiikka, lue_syote)
+        self._edellinen_komento = None
+
+    def aseta_edellinen_komento(self, komento):
+        self._edellinen_komento = komento
+
     def suorita(self):
-        pass
+        if self._edellinen_komento is not None:
+            self._edellinen_komento.kumoa()
 
 
 class Kayttoliittyma:
@@ -104,7 +126,13 @@ class Kayttoliittyma:
     def _suorita_komento(self, komento):
         komento_olio = self._komennot[komento]
         komento_olio.suorita()
-        self._kumoa_painike["state"] = constants.NORMAL
+
+        kumoa_komento = self._komennot[Komento.KUMOA]
+        kumoa_komento.aseta_edellinen_komento(komento_olio)
+        if kumoa_komento._edellinen_komento.voiko_kumota():
+            self._kumoa_painike["state"] = constants.NORMAL
+        else:
+            self._kumoa_painike["state"] = constants.DISABLED
 
         if self._sovelluslogiikka.tulos == 0:
             self._nollaus_painike["state"] = constants.DISABLED
