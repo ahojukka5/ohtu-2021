@@ -30,7 +30,7 @@ class HasAtLeast:
 
 
 class All:
-    def matches(self):
+    def matches(self, player):
         return True
 
 
